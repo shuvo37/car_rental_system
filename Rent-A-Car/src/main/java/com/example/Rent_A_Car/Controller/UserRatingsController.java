@@ -1,12 +1,14 @@
 package com.example.Rent_A_Car.Controller;
 
 import com.example.Rent_A_Car.Model.UserRating;
+import com.example.Rent_A_Car.Repository.CarRepository;
 import com.example.Rent_A_Car.Repository.UserRatingRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@CrossOrigin(origins = "*")   // 👈 added
 @RestController
 @RequestMapping("/api/ratings")
 public class UserRatingsController {
@@ -17,7 +19,6 @@ public class UserRatingsController {
         this.userRatingsRepository = userRatingsRepository;
     }
 
-
     @GetMapping("/user/{userId}")
     public ResponseEntity<?> getRatingByUser(@PathVariable Long userId) {
         Optional<UserRating> rating = userRatingsRepository.findByUserUserId(userId);
@@ -25,7 +26,6 @@ public class UserRatingsController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
 
     @PutMapping("/user/{userId}")
     public ResponseEntity<?> updateRating(@PathVariable Long userId,
@@ -38,8 +38,16 @@ public class UserRatingsController {
         }
 
         UserRating rating = optionalRating.get();
+
+        // 👇 updated all new fields
         rating.setRating(updatedRating.getRating());
+        rating.setLatePenalty(updatedRating.getLatePenalty());
         rating.setDiscountPercentage(updatedRating.getDiscountPercentage());
+        rating.setDiscountEnabled(updatedRating.getDiscountEnabled());
+        rating.setDiscountType(updatedRating.getDiscountType());
+        rating.setDiscountValue(updatedRating.getDiscountValue());
+        rating.setDiscountMinOrders(updatedRating.getDiscountMinOrders());
+        rating.setDiscountMaxUses(updatedRating.getDiscountMaxUses());
 
         return ResponseEntity.ok(userRatingsRepository.save(rating));
     }

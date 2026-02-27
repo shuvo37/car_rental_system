@@ -1,5 +1,5 @@
 package com.example.Rent_A_Car.Model;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.ArrayList;   // 👈 import 1
 import java.util.List;        // 👈 import 2
@@ -31,7 +31,8 @@ public class Company {
     @Column(name = "company_address", nullable = false)
     private String companyAddress;
 
-    // 👇 import 3 — this is the fix
+
+    @JsonIgnore
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Car> cars = new ArrayList<>();
 
