@@ -26,8 +26,32 @@ public class CompanyController {
             return ResponseEntity.badRequest().body("Company name is required");
         }
 
+        if (company.getCompanyEmail() == null || company.getCompanyEmail().isEmpty()) {
+            return ResponseEntity.badRequest().body("Company email is required");
+        }
+
+        if (company.getCompanyPhoneNumber() == null || company.getCompanyPhoneNumber().isEmpty()) {
+            return ResponseEntity.badRequest().body("Company phone number is required");
+        }
+
+        if (company.getCompanyCountry() == null || company.getCompanyCountry().isEmpty()) {
+            return ResponseEntity.badRequest().body("Company country is required");
+        }
+
+        if (company.getCompanyCity() == null || company.getCompanyCity().isEmpty()) {
+            return ResponseEntity.badRequest().body("Company city is required");
+        }
+
+        if (company.getCompanyAddress() == null || company.getCompanyAddress().isEmpty()) {
+            return ResponseEntity.badRequest().body("Company address is required");
+        }
+
         if (companyRepository.existsByCompanyName(company.getCompanyName())) {
-            return ResponseEntity.badRequest().body("Company already exists");
+            return ResponseEntity.badRequest().body("Company name already exists");
+        }
+
+        if (companyRepository.existsByCompanyEmail(company.getCompanyEmail())) {
+            return ResponseEntity.badRequest().body("Company email already exists");
         }
 
         Company savedCompany = companyRepository.save(company);
@@ -65,7 +89,14 @@ public class CompanyController {
         }
 
         Company company = optionalCompany.get();
+
+        // 🔹 Update all fields
         company.setCompanyName(updatedCompany.getCompanyName());
+        company.setCompanyEmail(updatedCompany.getCompanyEmail());
+        company.setCompanyPhoneNumber(updatedCompany.getCompanyPhoneNumber());
+        company.setCompanyCountry(updatedCompany.getCompanyCountry());
+        company.setCompanyCity(updatedCompany.getCompanyCity());
+        company.setCompanyAddress(updatedCompany.getCompanyAddress());
 
         Company saved = companyRepository.save(company);
         return ResponseEntity.ok(saved);
