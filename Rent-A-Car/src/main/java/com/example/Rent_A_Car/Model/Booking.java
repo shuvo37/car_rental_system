@@ -12,6 +12,12 @@ public class Booking {
     @Column(name = "booking_id")
     private Long bookingId;
 
+    @Column(name = "booking_ref", nullable = false, unique = true)
+    private String bookingRef;
+
+    @Column(name = "booking_time", nullable = false)
+    private LocalDateTime bookingTime;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -20,87 +26,119 @@ public class Booking {
     @JoinColumn(name = "car_id", nullable = false)
     private Car car;
 
-    @Column(name = "start_time", nullable = false)
-    private LocalDateTime startTime;
+    @Column(name = "days", nullable = false)
+    private Integer days;
 
-    @Column(name = "end_time", nullable = false)
-    private LocalDateTime endTime;
+    @Column(name = "hours", nullable = false)
+    private Integer hours;
+
+    @Column(name = "total_hours", nullable = false)
+    private Integer totalHours;
+
+    @Column(name = "house_no", nullable = false)
+    private String houseNo;
+
+    @Column(name = "road_no", nullable = false)
+    private String roadNo;
+
+    @Column(name = "block_no", nullable = false)
+    private String blockNo;
+
+    @Column(name = "service_city", nullable = false)
+    private String serviceCity;
+
+    @Column(name = "phone", nullable = false)
+    private String phone;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_method", nullable = false)
+    private PaymentMethod paymentMethod;
+
+    @Column(name = "promo_applied", nullable = false)
+    private Boolean promoApplied = false;
+
+    @Column(name = "base_price", nullable = false)
+    private Double basePrice;
+
+    @Column(name = "discount_amount", nullable = false)
+    private Double discountAmount = 0.0;   // how much was discounted in $
 
     @Column(name = "total_price", nullable = false)
     private Double totalPrice;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private BookingStatus status;
+    @Column(name = "end_time", nullable = false)
+    private LocalDateTime endTime;
 
-    // 🔹 Constructors
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status", nullable = false)
+    private PaymentStatus paymentStatus;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "booking_status", nullable = false)
+    private BookingStatus bookingStatus = BookingStatus.BOOKED;
+
     public Booking() {}
 
-    public Booking(User user, Car car, LocalDateTime startTime, LocalDateTime endTime,
-                   Double totalPrice, BookingStatus status) {
-        this.user = user;
-        this.car = car;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.totalPrice = totalPrice;
-        this.status = status;
-    }
+    public Long getBookingId()                       { return bookingId; }
+    public void setBookingId(Long id)                { this.bookingId = id; }
 
-    // 🔹 Getters & Setters
+    public String getBookingRef()                    { return bookingRef; }
+    public void setBookingRef(String ref)            { this.bookingRef = ref; }
 
-    public Long getBookingId() {
-        return bookingId;
-    }
+    public LocalDateTime getBookingTime()            { return bookingTime; }
+    public void setBookingTime(LocalDateTime time)   { this.bookingTime = time; }
 
-    public void setBookingId(Long bookingId) {
-        this.bookingId = bookingId;
-    }
+    public User getUser()                            { return user; }
+    public void setUser(User user)                   { this.user = user; }
 
-    public User getUser() {
-        return user;
-    }
+    public Car getCar()                              { return car; }
+    public void setCar(Car car)                      { this.car = car; }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public Integer getDays()                         { return days; }
+    public void setDays(Integer days)                { this.days = days; }
 
-    public Car getCar() {
-        return car;
-    }
+    public Integer getHours()                        { return hours; }
+    public void setHours(Integer hours)              { this.hours = hours; }
 
-    public void setCar(Car car) {
-        this.car = car;
-    }
+    public Integer getTotalHours()                   { return totalHours; }
+    public void setTotalHours(Integer totalHours)    { this.totalHours = totalHours; }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
+    public String getHouseNo()                       { return houseNo; }
+    public void setHouseNo(String houseNo)           { this.houseNo = houseNo; }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
+    public String getRoadNo()                        { return roadNo; }
+    public void setRoadNo(String roadNo)             { this.roadNo = roadNo; }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
+    public String getBlockNo()                       { return blockNo; }
+    public void setBlockNo(String blockNo)           { this.blockNo = blockNo; }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
+    public String getServiceCity()                   { return serviceCity; }
+    public void setServiceCity(String serviceCity)   { this.serviceCity = serviceCity; }
 
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
+    public String getPhone()                         { return phone; }
+    public void setPhone(String phone)               { this.phone = phone; }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
+    public PaymentMethod getPaymentMethod()          { return paymentMethod; }
+    public void setPaymentMethod(PaymentMethod m)    { this.paymentMethod = m; }
 
-    public BookingStatus getStatus() {
-        return status;
-    }
+    public Boolean getPromoApplied()                 { return promoApplied; }
+    public void setPromoApplied(Boolean applied)     { this.promoApplied = applied; }
 
-    public void setStatus(BookingStatus status) {
-        this.status = status;
-    }
+    public Double getBasePrice()                     { return basePrice; }
+    public void setBasePrice(Double basePrice)       { this.basePrice = basePrice; }
+
+    public Double getDiscountAmount()                { return discountAmount; }
+    public void setDiscountAmount(Double discount)   { this.discountAmount = discount; }
+
+    public Double getTotalPrice()                    { return totalPrice; }
+    public void setTotalPrice(Double totalPrice)     { this.totalPrice = totalPrice; }
+
+    public LocalDateTime getEndTime()              { return endTime; }
+    public void setEndTime(LocalDateTime endTime)  { this.endTime = endTime; }
+
+    public PaymentStatus getPaymentStatus()          { return paymentStatus; }
+    public void setPaymentStatus(PaymentStatus s)    { this.paymentStatus = s; }
+
+    public BookingStatus getBookingStatus()          { return bookingStatus; }
+    public void setBookingStatus(BookingStatus s)    { this.bookingStatus = s; }
 }

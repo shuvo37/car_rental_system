@@ -25,54 +25,60 @@ public class Car {
     @Column(name = "rental_status", nullable = false)
     private RentalStatus rentalStatus;
 
+    @Column(name = "seats", nullable = false)
+    private Integer seats;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "fuel", nullable = false)
+    private FuelType fuel;
+
+    @Lob
+    @Column(name = "image", columnDefinition = "LONGBLOB")
+    private byte[] image;
+
+    @Column(name = "tag", nullable = true)
+    private String tag;
+
     // 🔹 Constructors
     public Car() {}
 
-    public Car(Company company, String modelName, Double pricePerHour, RentalStatus rentalStatus) {
+    public Car(Company company, String modelName, Double pricePerHour, RentalStatus rentalStatus,
+               Integer seats, FuelType fuel, byte[] image, String tag) {
         this.company = company;
         this.modelName = modelName;
         this.pricePerHour = pricePerHour;
         this.rentalStatus = rentalStatus;
+        this.seats = seats;
+        this.fuel = fuel;
+        this.image = image;
+        this.tag = tag;
     }
 
     // 🔹 Getters and Setters
-    public Long getCarId() {
-        return carId;
-    }
+    public Long getCarId() { return carId; }
+    public void setCarId(Long carId) { this.carId = carId; }
 
-    public void setCarId(Long carId) {
-        this.carId = carId;
-    }
+    public Company getCompany() { return company; }
+    public void setCompany(Company company) { this.company = company; }
 
-    public Company getCompany() {
-        return company;
-    }
+    public String getModelName() { return modelName; }
+    public void setModelName(String modelName) { this.modelName = modelName; }
 
-    public void setCompany(Company company) {
-        this.company = company;
-    }
+    public Double getPricePerHour() { return pricePerHour; }
+    public void setPricePerHour(Double pricePerHour) { this.pricePerHour = pricePerHour; }
 
-    public String getModelName() {
-        return modelName;
-    }
+    public RentalStatus getRentalStatus() { return rentalStatus; }
+    public void setRentalStatus(RentalStatus rentalStatus) { this.rentalStatus = rentalStatus; }
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
+    public Integer getSeats() { return seats; }
+    public void setSeats(Integer seats) { this.seats = seats; }
 
-    public Double getPricePerHour() {
-        return pricePerHour;
-    }
+    public FuelType getFuel() { return fuel; }
+    public void setFuel(FuelType fuel) { this.fuel = fuel; }
 
-    public void setPricePerHour(Double pricePerHour) {
-        this.pricePerHour = pricePerHour;
-    }
+    public byte[] getImage() { return image; }
+    public void setImage(byte[] image) { this.image = image; }
 
-    public RentalStatus getRentalStatus() {
-        return rentalStatus;
-    }
-
-    public void setRentalStatus(RentalStatus rentalStatus) {
-        this.rentalStatus = rentalStatus;
-    }
+    public String getTag() { return tag; }
+    public void setTag(String tag) { this.tag = tag; }
 }

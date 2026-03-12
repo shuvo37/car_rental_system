@@ -16,15 +16,11 @@ public class RatingPolicyController {
         this.policyRepository = policyRepository;
     }
 
-    // 👇 Get current policy
-    @GetMapping
-    public ResponseEntity<?> getPolicy() {
-        return ResponseEntity.ok(
-                policyRepository.findById(1L).orElseGet(() -> {
-                    RatingPolicy defaultPolicy = new RatingPolicy();
-                    return policyRepository.save(defaultPolicy);  // 👈 auto create if not exists
-                })
-        );
+    @GetMapping("/discount")
+    public ResponseEntity<?> getDiscountPolicy() {
+        return policyRepository.findById(1L)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // 👇 Update policy
